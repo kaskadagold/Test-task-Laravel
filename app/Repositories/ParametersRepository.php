@@ -25,7 +25,8 @@ class ParametersRepository implements ParametersRepositoryContract
 
     public function findForList(
         ListFilterDTO $listFilterDTO,
-        array $fields = ['*'],  
+        array $fields = ['*'],
+        array $relations = [], 
     ): Collection 
     {
         return $this->getModel()
@@ -38,6 +39,7 @@ class ParametersRepository implements ParametersRepositoryContract
             )
             ->when($listFilterDTO->getOrderId() !== null, fn ($query) => $query->orderBy('id', $listFilterDTO->getOrderId()))
             ->when($listFilterDTO->getOrderTitle() !== null, fn ($query) => $query->orderBy('title', $listFilterDTO->getOrderTitle()))
+            ->when($relations, fn ($query) => $query->with($relations))
             ->get($fields)
         ;
     }

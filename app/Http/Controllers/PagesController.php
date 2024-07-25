@@ -16,13 +16,12 @@ class PagesController extends Controller
 
     public function index(Request $request): View
     {
-        // $parameters = $this->parametersRepository->getParameters();
         $listFilterDTO = (new ListFilterDTO())->setId($request->get('id_search'))
             ->setTitle($request->get('title_search'))
             ->setOrderId($request->get('order_id'))
             ->setOrderTitle($request->get('order_title'))
         ;
-        $parameters = $this->parametersRepository->findForList($listFilterDTO);
+        $parameters = $this->parametersRepository->findForList($listFilterDTO, relations: ['image', 'imageGray']);
 
         return view('pages.home', ['parameters' => $parameters, 'filterValues' => $listFilterDTO]);
     }
