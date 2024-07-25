@@ -11,10 +11,10 @@
 >
     {{ $slot }}
     @if ($showAscIcon())
-        <img class="h-20" src="/assets/images/up.png" />
+        <img class="h-20" src="/assets/images/down.png" />
     @endif
     @if ($showDescIcon())
-        <img class="h-20" src="/assets/images/down.png" />
+        <img class="h-20" src="/assets/images/up.png" />
     @endif
 
 </button>
