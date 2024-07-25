@@ -19,7 +19,7 @@
     <x-layouts-parts.header headerTitle="{{ $headerTitle ?? $pageTitle }}"/>
 
     <main class="my-0 mx-15">
-        {{-- <x-panels.messages.flashes /> --}}
+        <x-panels.messages.flashes />
 
         {{ $slot }}
     </main>

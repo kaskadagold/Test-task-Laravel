@@ -1,15 +1,9 @@
 <x-layouts.app>
 
-    <div class="flex content-center">
-        <a href="{{ route('create') }}">
-            <button class="text-18 font-bold text-white bg-purple px-30 py-15 rounded-25 pointer">
-                + Добавить новый параметр
-            </button>
-        </a>
-    </div>
-
     <div>
-        <h3>Список параметров</h3>
+        <h3>Список параметров, к которым можно подгрузить изображения</h3>
+
+        <x-filter.filter :filter-values="$filterValues" />
 
         @if ($parameters->isNotEmpty())
             <x-parameters.table>

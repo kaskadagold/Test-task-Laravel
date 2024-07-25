@@ -7,6 +7,11 @@
     margin-bottom: 0;
 }
 
+.my-15 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 .mx-5 {
     margin-left: 5px;
     margin-right: 5px;
