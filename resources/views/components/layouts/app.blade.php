@@ -23,6 +23,13 @@
 
         {{ $slot }}
     </main>
+
+    <script>
+    function deleteImageButton(imageType) {
+        document.getElementById(imageType + '_delete').value = "1";
+        document.getElementById(imageType + '_container').style.display = "none";
+    }
+    </script>
 </body>
 
 </html>

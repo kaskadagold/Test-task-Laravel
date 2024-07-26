@@ -19,3 +19,16 @@ a:link, a:visited {
 .pointer {
     cursor: pointer;
 }
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.position {
+    top: 0;
+    right: 0;
+}

@@ -12,5 +12,9 @@ interface ParametersRepositoryContract
 
     public function getModel(): Parameter;
 
-    public function findForList(ListFilterDTO $listFilterDTO, array $fields = ['*']): Collection;
+    public function findForList(ListFilterDTO $listFilterDTO, array $fields = ['*'], array $relations = []): Collection;
+
+    public function getById(int $id, array $relations = []): Parameter;
+
+    public function update(Parameter $parameter, array $fields): Parameter;
 }
