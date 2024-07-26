@@ -18,7 +18,7 @@ class ParametersService implements ParametersUpdateServiceContract
     }
 
     /**
-     * Summary of update
+     * Обновление изображений параметра
      * @param int $id
      * @param array $fields
      * @throws \App\Exceptions\ParameterTypeException
@@ -28,6 +28,9 @@ class ParametersService implements ParametersUpdateServiceContract
     {
         $parameter = $this->parametersRepository->getById($id);
 
+        /** Если параметр имеет или изменяет тип на не поддерживающий подгрузку изображений, 
+         * то будет выброшено исключение ParameterTypeException
+         */
         if (
             (int) $parameter->type === TypeEntity::TYPE_WITHOUT_IMAGES || 
             (isset($fields['type']) && $fields['type'] === TypeEntity::TYPE_WITHOUT_IMAGES)

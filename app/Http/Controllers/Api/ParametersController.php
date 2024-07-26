@@ -10,9 +10,8 @@ use Illuminate\Http\Request;
 
 class ParametersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /* Отоборажение параметров, к которым можно подгрузить изображения, 
+        вместе с уже загруженными изображениями в формате JSON */
     public function index(
         Request $request,
         ParametersRepositoryContract $parametersRepository

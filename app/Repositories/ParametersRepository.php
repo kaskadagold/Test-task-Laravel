@@ -19,6 +19,11 @@ class ParametersRepository implements ParametersRepositoryContract
         return $this->model;
     }
 
+    /**
+     * Получение списка параметров, к которым можно подгружать изображения
+     * @param array $relations
+     * @return \Illuminate\Support\Collection
+     */
     public function getParameters(array $relations = []): Collection
     {
         return $this->getModel()
@@ -28,12 +33,19 @@ class ParametersRepository implements ParametersRepositoryContract
         ;
     }
 
+    /**
+     * Получение списка параметров, к которым можно подгружать изображения и
+     * которые удовлетворяют заданным условиями поиска и сортировки
+     * @param \App\DTO\ListFilterDTO $listFilterDTO
+     * @param array $fields
+     * @param array $relations
+     * @return \Illuminate\Support\Collection
+     */
     public function findForList(
         ListFilterDTO $listFilterDTO,
         array $fields = ['*'],
         array $relations = [], 
-    ): Collection 
-    {
+    ): Collection {
         return $this->getModel()
             ->where('type', TypeEntity::TYPE_WITH_IMAGES)
             ->when($listFilterDTO->getId() !== null, fn ($query) => 
@@ -49,6 +61,12 @@ class ParametersRepository implements ParametersRepositoryContract
         ;
     }
 
+    /**
+     * Получение параметра по его id
+     * @param int $id
+     * @param array $relations
+     * @return \App\Models\Parameter
+     */
     public function getById(int $id, array $relations = []): Parameter
     {
         return $this->getModel()
@@ -57,6 +75,12 @@ class ParametersRepository implements ParametersRepositoryContract
         ;
     }
 
+    /**
+     * Обновление параметра
+     * @param \App\Models\Parameter $parameter
+     * @param array $fields
+     * @return \App\Models\Parameter
+     */
     public function update(Parameter $parameter, array $fields): Parameter
     {
         $parameter->update($fields);

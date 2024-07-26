@@ -31,6 +31,9 @@ class ParameterRequest extends FormRequest
 
     public function prepareForValidation(): void
     {
+        /** При передаче изображения здесь обрабатывается его название
+         *  для корректного заполнения полей таблицы в БД
+         */
         if (!is_null($this->icon)) {
             $fields = $this->prepareImage($this->icon->getClientOriginalName());
 

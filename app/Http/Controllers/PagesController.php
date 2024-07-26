@@ -18,6 +18,7 @@ class PagesController extends Controller
     ) {
     }
 
+    //Отображение параметров вместе с подгруженными изображениями
     public function index(Request $request): View
     {
         $listFilterDTO = (new ListFilterDTO())->setId($request->get('id_search'))
@@ -30,11 +31,13 @@ class PagesController extends Controller
         return view('pages.home', ['parameters' => $parameters, 'filterValues' => $listFilterDTO]);
     }
 
+    // Отображение страницы с формой редактирования параметра
     public function edit(int $id): View
     {
         return view('pages.edit', ['parameter' => $this->parametersRepository->getById($id, ['image', 'imageGray'])]);
     }
 
+    // Обновление данных параметра в БД
     public function update(
         ParameterRequest $request,
         int $id,
