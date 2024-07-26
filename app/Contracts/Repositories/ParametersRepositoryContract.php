@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 interface ParametersRepositoryContract
 {
-    public function getParameters(): Collection;
+    public function getParameters(array $relations = []): Collection;
 
     public function getModel(): Parameter;
 

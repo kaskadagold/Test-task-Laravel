@@ -19,9 +19,13 @@ class ParametersRepository implements ParametersRepositoryContract
         return $this->model;
     }
 
-    public function getParameters(): Collection
+    public function getParameters(array $relations = []): Collection
     {
-        return $this->getModel()->where('type', TypeEntity::TYPE_WITH_IMAGES)->get();
+        return $this->getModel()
+            ->where('type', TypeEntity::TYPE_WITH_IMAGES)
+            ->when($relations, fn ($query) => $query->with($relations))
+            ->get()
+        ;
     }
 
     public function findForList(
