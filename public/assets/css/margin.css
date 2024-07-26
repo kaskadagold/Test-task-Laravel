@@ -7,6 +7,11 @@
     margin-bottom: 0;
 }
 
+.my-5 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .my-15 {
     margin-top: 15px;
     margin-bottom: 15px;
@@ -26,8 +31,16 @@
     margin-left: 10px;
 }
 
+.mt-40 {
+    margin-top: 40px;
+}
+
 .mt-5 {
     margin-top: 5px;
+}
+
+.mb-2 {
+    margin-bottom: 2px;
 }
 
 .mb-15 {

@@ -2,7 +2,7 @@
 
 <tr class="border-b-1 collapse text-20">
     <td class="px-10 py-5">
-        <a>
+        <a href="{{ route('edit', ['parameter' => $parameter]) }}">
             <button class="w-50 h-50 flex content-center bg-white bg-transition p-0 hover-bg-change pointer border-none rounded-25">
                 <img class="w-2_3" src="/assets/images/update-icon.png" alt="Редактировать" title="Редактировать">
             </button>

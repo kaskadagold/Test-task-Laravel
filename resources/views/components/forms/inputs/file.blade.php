@@ -1,7 +1,7 @@
-@props(['value' => null, 'type' => 'text', 'error' => null])
+@props(['multiple' => false, 'error' => null])
 
 <input
-    type="{{ $type }}"
+    type="file"
     @class([
         'block text-16 mt-5 mb-15 py-5 px-10 w-1_4 h-30 border-1 rounded-8 box-shadow focus-border-change',
         'border-gray' => empty($error),
@@ -9,5 +9,7 @@
         $attributes->get('class'),
     ])
     {{ $attributes->except('class', 'type') }}
-    value="{{ $value }}"
+    @if ($multiple)
+        multiple="multiple"
+    @endif
 />

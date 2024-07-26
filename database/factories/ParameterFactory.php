@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Entity\Parameters\TypeEntity;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Image;
 
@@ -19,9 +20,9 @@ class ParameterFactory extends Factory
     {
         $fields = [
             'title' => fake()->unique()->word(),
-            'type' => fake()->randomElement([1, 2]),
+            'type' => fake()->randomElement(TypeEntity::getAllTypes()),
         ];
-        if ($fields['type'] === 2) {
+        if ($fields['type'] === TypeEntity::TYPE_WITH_IMAGES) {
             if (rand()&9 >= 4) {
                 $fields['icon_id'] = Image::factory();
             }
@@ -29,6 +30,7 @@ class ParameterFactory extends Factory
                 $fields['icon_gray_id'] = Image::factory();
             }
         }
+
         return $fields;
     }
 }

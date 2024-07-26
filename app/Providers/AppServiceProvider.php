@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contracts\Services\ImagesServiceContract;
+use App\Contracts\Services\ParametersUpdateServiceContract;
+use App\Services\ImagesService;
+use App\Services\ParametersService;
 use Illuminate\Support\ServiceProvider;
 use App\Contracts\Services\FlashMessageContract;
 use App\Contracts\Services\MessageLimiterContract;
@@ -30,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
             $faker->addProvider(new FakerImageProvider($faker));
             return $faker;
         });
+        $this->app->singleton(ImagesServiceContract::class, function () {
+            return $this->app->make(ImagesService::class, ['disk' => 'public']);
+        });
+        $this->app->singleton(ParametersUpdateServiceContract::class, ParametersService::class);
     }
 
     /**

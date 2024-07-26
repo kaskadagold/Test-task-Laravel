@@ -21,8 +21,14 @@ class ImageFactory extends Factory
     {
         $path = Storage::disk(Image::STORAGE_DISK)
                 ->putFile('', new File($this->faker->image()));
+
+        $pos = strrpos($path, '.');
+        $title = substr($path, 0, $pos);
+        $extension = substr($path, $pos + 1);
+
         return [
-            'title' => $path,
+            'title' => $title,
+            'extension' => $extension,
             'path' => $path,
         ];
     }

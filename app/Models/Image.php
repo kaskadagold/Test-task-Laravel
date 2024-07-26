@@ -13,7 +13,7 @@ class Image extends Model
 
     public const STORAGE_DISK = 'public';
 
-    protected $fillable = ['path'];
+    protected $fillable = ['title', 'extension', 'path'];
 
     public function url(): Attribute
     {
