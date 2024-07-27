@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use App\Models\Image;
 
@@ -33,19 +34,22 @@ class ParameterRequest extends FormRequest
     {
         /** При передаче изображения здесь обрабатывается его название
          *  для корректного заполнения полей таблицы в БД
+         *  @var mixed $icon
          */
-        if (!is_null($this->icon)) {
-            $fields = $this->prepareImage($this->icon->getClientOriginalName());
+        $icon = $this->icon ?? null;
+        if ($icon instanceof UploadedFile) {
+            $fields = $this->prepareImage($icon->getClientOriginalName());
 
             $this->merge([
                 'icon_title' => $fields['title'],
                 'icon_extension' => $fields['extension'],
                 'icon_path' => $fields['path'],
-                'delete_icon' => '0',
             ]);
         }
 
-        if (!is_null($this->icon_gray)) {
+        /** @var mixed $iconGray */
+        $iconGray = $this->icon_gray ?? null;
+        if ($iconGray instanceof UploadedFile) {
             $iconPath = null;
             if (isset($fields['icon_path'])) {
                 $iconPath = $fields['icon_path'];
@@ -57,7 +61,6 @@ class ParameterRequest extends FormRequest
                 'icon_gray_title' => $fields['title'],
                 'icon_gray_extension' => $fields['extension'],
                 'icon_gray_path' => $fields['path'],
-                'delete_icon_gray' => '0',
             ]);
         }
     }

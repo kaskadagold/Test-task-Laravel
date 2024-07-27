@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Repositories\ParametersRepositoryContract;
 use App\Contracts\Services\FlashMessageContract;
 use App\Contracts\Services\ParametersUpdateServiceContract;
+use App\Exceptions\ParameterTypeException;
 use App\Http\Requests\ParameterRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -44,7 +45,12 @@ class PagesController extends Controller
         ParametersUpdateServiceContract $parametersService,
         FlashMessageContract $flashMessage,
     ): RedirectResponse {
-        $parametersService->update($id, $request->validated(), $flashMessage);
+        try {
+            $parametersService->update($id, $request->validated());
+        } catch (ParameterTypeException $exception) {
+            $flashMessage->error($exception->getMessage());
+            throw $exception;
+        }
 
         $flashMessage->success('Параметр успешно обновлен');
 
