@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Contracts\Repositories\ParametersRepositoryContract;
-use App\Contracts\Services\FlashMessageContract;
 use App\Contracts\Services\ImagesServiceContract;
 use App\Contracts\Services\ParametersUpdateServiceContract;
 use App\Entity\Parameters\TypeEntity;
@@ -18,23 +17,24 @@ class ParametersService implements ParametersUpdateServiceContract
     }
 
     /**
-     * Summary of update
+     * Обновление изображений параметра
      * @param int $id
      * @param array $fields
      * @throws \App\Exceptions\ParameterTypeException
      * @return void
      */
-    public function update(int $id, array $fields, FlashMessageContract $flashMessage): void
+    public function update(int $id, array $fields): void
     {
         $parameter = $this->parametersRepository->getById($id);
 
+        /** Если параметр имеет или изменяет тип на не поддерживающий подгрузку изображений, 
+         * то будет выброшено исключение ParameterTypeException
+         */
         if (
             (int) $parameter->type === TypeEntity::TYPE_WITHOUT_IMAGES || 
-            (isset($fields['type']) && $fields['type'] === TypeEntity::TYPE_WITHOUT_IMAGES)
+            (isset($fields['type']) && (int) $fields['type'] === TypeEntity::TYPE_WITHOUT_IMAGES)
         ) {
-            $exception = new ParameterTypeException();
-            $flashMessage->error($exception->getMessage());
-            throw $exception;
+            throw new ParameterTypeException();
         }
 
         $oldIconId = null;
@@ -49,6 +49,13 @@ class ParametersService implements ParametersUpdateServiceContract
             );
             $fields['icon_id'] = $icon->id;
             $oldIconId = $parameter->icon_id;
+
+            $fields['delete_icon'] = "0";
+        }
+
+        if ($fields['delete_icon']) {
+            $fields['icon_id'] = null;
+            $this->imagesService->deleteFile($parameter->icon_id);
         }
 
         if (!empty($fields['icon_gray'])) {
@@ -60,11 +67,8 @@ class ParametersService implements ParametersUpdateServiceContract
             );
             $fields['icon_gray_id'] = $iconGray->id;
             $oldIconGrayId = $parameter->icon_gray_id;
-        }
 
-        if ($fields['delete_icon']) {
-            $fields['icon_id'] = null;
-            $this->imagesService->deleteFile($parameter->icon_id);
+            $fields['delete_icon_gray'] = "0";
         }
 
         if ($fields['delete_icon_gray']) {

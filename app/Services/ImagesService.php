@@ -31,6 +31,11 @@ class ImagesService implements ImagesServiceContract
         return Storage::disk($this->disk)->url($path);
     }
 
+    /**
+     * Удаление изображения
+     * @param \App\Models\Image|int $image
+     * @return void
+     */
     public function deleteFile(Image | int $image): void
     {
         if (!($image instanceof Image)) {

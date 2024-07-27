@@ -6,6 +6,8 @@ use Faker\Provider\Base;
 use InvalidArgumentException;
 use RuntimeException;
 
+/* Кастомный провайдер по генерации тестовых изображений. Написан по аналогии 
+    с имеющимся, но не работающим провайдером FakerImageProvider */
 class FakerImageProvider extends Base
 {
     protected static string $baseUrl = "https://loremflickr.com/";

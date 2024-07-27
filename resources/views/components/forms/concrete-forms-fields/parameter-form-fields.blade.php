@@ -52,6 +52,7 @@
         id="parameterIcon"
         name="icon"
         value="{{ $parameter->image?->url }}"
+        error="{{ $errors->first('icon') }}"
     />
 </x-forms.groups.group>
 
@@ -62,5 +63,6 @@
         id="parameterIconGray"
         name="icon_gray"
         value="{{ $parameter->imageGray?->url }}"
+        error="{{ $errors->first('icon_gray') }}"
     />
 </x-forms.groups.group>

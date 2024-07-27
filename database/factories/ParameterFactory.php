@@ -22,11 +22,13 @@ class ParameterFactory extends Factory
             'title' => fake()->unique()->word(),
             'type' => fake()->randomElement(TypeEntity::getAllTypes()),
         ];
+
+        /** Случайное добавление изображений параметрам с требуемым типам */
         if ($fields['type'] === TypeEntity::TYPE_WITH_IMAGES) {
-            if (rand()&9 >= 4) {
+            if (rand(0, 9) >= 4) {
                 $fields['icon_id'] = Image::factory();
             }
-            if (rand()&9 >= 4) {
+            if (rand(0, 9) >= 4) {
                 $fields['icon_gray_id'] = Image::factory();
             }
         }
